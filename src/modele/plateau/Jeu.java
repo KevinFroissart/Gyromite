@@ -82,6 +82,10 @@ public class Jeu {
 
         addEntite(new Mur(this), 2, 6);
         addEntite(new Mur(this), 3, 6);
+
+        addEntite(new Colonne(this), 4, 8);
+        addEntite(new Colonne(this), 4, 7);
+        addEntite(new Colonne(this), 4, 6);
     }
 
     private void addEntite(Entite e, int x, int y) {

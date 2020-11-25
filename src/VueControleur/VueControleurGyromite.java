@@ -64,7 +64,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
 
     private void chargerLesIcones() {
-        icoHero = chargerIcone("Images/Pacman.png");
+        icoHero = chargerIcone("Images/Prof_Idle.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoColonne = chargerIcone("Images/Colonne.png");
         icoMur = chargerIcone("Images/Mur.png");

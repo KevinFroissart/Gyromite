@@ -106,14 +106,14 @@ public class Jeu {
         if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null) { // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             switch (d) {
-                case bas, haut:
+                case bas, haut, s, z:
                     if (cmptDeplV.get(e) == null) {
                         cmptDeplV.put(e, 1);
 
                         retour = true;
                     }
                     break;
-                case gauche, droite:
+                case gauche, droite, q, d:
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
                         retour = true;
@@ -135,11 +135,10 @@ public class Jeu {
         Point pCible = null;
         
         switch(d) {
-            case haut: pCible = new Point(pCourant.x, pCourant.y - 1); break;
-            case bas : pCible = new Point(pCourant.x, pCourant.y + 1); break;
-            case gauche : pCible = new Point(pCourant.x - 1, pCourant.y); break;
-            case droite : pCible = new Point(pCourant.x + 1, pCourant.y); break;     
-            
+            case haut, z: pCible = new Point(pCourant.x, pCourant.y - 1); break;
+            case bas, s : pCible = new Point(pCourant.x, pCourant.y + 1); break;
+            case gauche, q : pCible = new Point(pCourant.x - 1, pCourant.y); break;
+            case droite, d : pCible = new Point(pCourant.x + 1, pCourant.y); break;     
         }
         
         return pCible;

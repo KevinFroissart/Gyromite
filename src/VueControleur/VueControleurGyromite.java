@@ -53,10 +53,10 @@ public class VueControleurGyromite extends JFrame implements Observer {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()) {  // on regarde quelle touche a été pressée
-                    case KeyEvent.VK_LEFT : Controle4Directions.getInstance().setDirectionCourante(Direction.gauche); break;
-                    case KeyEvent.VK_RIGHT : Controle4Directions.getInstance().setDirectionCourante(Direction.droite); break;
-                    case KeyEvent.VK_DOWN : Controle4Directions.getInstance().setDirectionCourante(Direction.bas); break;
-                    case KeyEvent.VK_UP : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
+                    case KeyEvent.VK_LEFT, KeyEvent.VK_Q : Controle4Directions.getInstance().setDirectionCourante(Direction.gauche); break;
+                    case KeyEvent.VK_RIGHT, KeyEvent.VK_D : Controle4Directions.getInstance().setDirectionCourante(Direction.droite); break;
+                    case KeyEvent.VK_DOWN, KeyEvent.VK_S : Controle4Directions.getInstance().setDirectionCourante(Direction.bas); break;
+                    case KeyEvent.VK_UP, KeyEvent.VK_Z : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
                 }
             }
         });

@@ -27,12 +27,12 @@ public class Controle4Directions extends RealisateurDeDeplacement {
         for (EntiteDynamique e : lstEntitesDynamiques) {
             if (directionCourante != null)
                 switch (directionCourante) {
-                    case gauche, droite:
+                    case gauche, droite, q, d:
                         if (e.avancerDirectionChoisie(directionCourante))
                             ret = true;
                         break;
 
-                    case haut:
+                    case haut, z:
                         // on ne peut pas sauter sans prendre appui
                         // (attention, test d'appui réalisé à partir de la position courante, si la gravité à été appliquée, il ne s'agit pas de la position affichée, amélioration possible)
                         Entite eBas = e.regarderDansLaDirection(Direction.bas);

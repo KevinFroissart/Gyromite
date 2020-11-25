@@ -6,8 +6,10 @@
 package modele.plateau;
 
 import modele.deplacements.Controle4Directions;
+import modele.deplacements.ControleInteraction;
 import modele.deplacements.Direction;
 import modele.deplacements.Gravite;
+import modele.deplacements.Interaction;
 import modele.deplacements.Ordonnanceur;
 
 import java.awt.Point;
@@ -62,7 +64,9 @@ public class Jeu {
         ordonnanceur.add(g);
 
         Controle4Directions.getInstance().addEntiteDynamique(hector);
+        ControleInteraction.getInstance().addEntiteDynamique(hector);
         ordonnanceur.add(Controle4Directions.getInstance());
+        ordonnanceur.add(ControleInteraction.getInstance());
 
         // murs extérieurs horizontaux
         for (int x = 0; x < 20; x++) {
@@ -83,6 +87,11 @@ public class Jeu {
     private void addEntite(Entite e, int x, int y) {
         grilleEntites[x][y] = e;
         map.put(e, new Point(x, y));
+    }
+    
+    private void supprimerEntite(Entite e, int x, int y){
+        grilleEntites[x][y] = null;
+        map.remove(e);
     }
     
     /** Permet par exemple a une entité  de percevoir sont environnement proche et de définir sa stratégie de déplacement
@@ -130,7 +139,27 @@ public class Jeu {
         return retour;
     }
     
-    
+    public boolean interactionEntite(Entite e, Interaction i){
+        boolean retour = false;
+
+        Point pCourant = map.get(e);
+
+        if(contenuDansGrille(pCourant) && i == Interaction.Entrée || i == Interaction.e){
+            if(objetALaPosition(pCourant).getClass() == Mur.class && objetALaPosition(pCourant).getClass() != Heros.class){
+                retour = true; 
+                supprimerEntite(objetALaPosition(pCourant), (int) pCourant.getX(), (int) pCourant.getY());
+                
+            }
+            else if(objetALaPosition(pCourant).getClass() != Mur.class ){
+                retour = true; 
+                addEntite(new Mur(this), (int) pCourant.getX(), (int) pCourant.getY());
+            }
+        }
+
+        return retour;
+    }
+
+
     private Point calculerPointCible(Point pCourant, Direction d) {
         Point pCible = null;
         

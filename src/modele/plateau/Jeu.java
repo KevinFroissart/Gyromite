@@ -11,6 +11,11 @@ import modele.deplacements.Direction;
 import modele.deplacements.Gravite;
 import modele.deplacements.Interaction;
 import modele.deplacements.Ordonnanceur;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -20,8 +25,10 @@ import java.util.HashMap;
  */
 public class Jeu {
 
+    private final String SCOREPATH = System.getProperty("user.dir") + "\\ressources\\highscore.txt";
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
+    private int score;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -44,6 +51,7 @@ public class Jeu {
     }
 
     public void start(long _pause) {
+        score = 0;
         ordonnanceur.start(_pause);
     }
     
@@ -201,5 +209,43 @@ public class Jeu {
 
     public Ordonnanceur getOrdonnanceur() {
         return ordonnanceur;
+    }
+
+    public int getPoint(){
+        return score;
+    }
+
+    public void setPoint(int point){
+        score += point;
+    }
+
+    public boolean meilleurScore(){
+        String highscore2 = "0";
+        System.out.println(SCOREPATH);
+
+        try(BufferedReader lectureFichier = new BufferedReader(new FileReader(SCOREPATH))) {
+            String highscore = lectureFichier.readLine();
+            while(highscore != null){
+                System.out.println(highscore);
+                highscore = lectureFichier.readLine();
+
+            }
+        } catch(IOException ioe){
+            ioe.printStackTrace();
+        }
+        //highscore = highscore.substring(3, highscore.length());
+        return highscore2 == null ? nouveauMeilleurScore() : score > Integer.parseInt(highscore2) ? nouveauMeilleurScore() : false;
+    }
+
+    public boolean nouveauMeilleurScore(){
+        boolean retour = false;
+        
+        try (BufferedWriter ecritureFichier = new BufferedWriter(new FileWriter(SCOREPATH))) {
+            ecritureFichier.write(score);
+            retour = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return retour;
     }
 }

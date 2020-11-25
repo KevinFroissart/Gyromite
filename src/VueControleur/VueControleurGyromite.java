@@ -67,7 +67,6 @@ public class VueControleurGyromite extends JFrame implements Observer {
         });
     }
 
-
     private void chargerLesIcones() {
         icoHero = chargerIcone("Images/Prof_Idle.png");
         icoVide = chargerIcone("Images/Vide.png");
@@ -95,9 +94,10 @@ public class VueControleurGyromite extends JFrame implements Observer {
         setSize(400, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
-        JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+        JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX+1)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
         tabJLabel = new JLabel[sizeX][sizeY];
+        
 
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
@@ -109,7 +109,6 @@ public class VueControleurGyromite extends JFrame implements Observer {
         add(grilleJLabels);
     }
 
-    
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
@@ -143,6 +142,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         mettreAJourAffichage();
+        jeu.meilleurScore();
         /*
         SwingUtilities.invokeLater(new Runnable() {
                     @Override

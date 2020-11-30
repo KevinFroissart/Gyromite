@@ -248,7 +248,7 @@ public class Jeu {
             }
         }
     }
-}
+    
     public int getPoint(){
         return score;
     }

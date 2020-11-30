@@ -230,8 +230,11 @@ public class Jeu {
                     hector = new Heros(this);
                     addEntite(hector, x, y);
 
+
                     Controle4Directions.getInstance().addEntiteDynamique(hector);
                     ordonnanceur.add(Controle4Directions.getInstance());
+                    ControleInteraction.getInstance().addEntiteDynamique(hector);
+                    ordonnanceur.add(ControleInteraction.getInstance());
 
                     Gravite g = new Gravite();
                     g.addEntiteDynamique(hector);
@@ -259,12 +262,11 @@ public class Jeu {
 
     public boolean meilleurScore(){
         String highscore2 = "0";
-        System.out.println(SCOREPATH);
 
         try(BufferedReader lectureFichier = new BufferedReader(new FileReader(SCOREPATH))) {
             String highscore = lectureFichier.readLine();
             while(highscore != null){
-                System.out.println(highscore);
+                //System.out.println(highscore);
                 highscore = lectureFichier.readLine();
 
             }

@@ -15,7 +15,9 @@ import javax.swing.*;
 
 import modele.deplacements.Controle4Directions;
 import modele.deplacements.ControleColonne;
+import modele.deplacements.ControleInteraction;
 import modele.deplacements.Direction;
+import modele.deplacements.Interaction;
 import modele.plateau.*;
 
 
@@ -60,12 +62,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_RIGHT, KeyEvent.VK_D : Controle4Directions.getInstance().setDirectionCourante(Direction.droite); break;
                     case KeyEvent.VK_DOWN, KeyEvent.VK_S : Controle4Directions.getInstance().setDirectionCourante(Direction.bas); break;
                     case KeyEvent.VK_UP, KeyEvent.VK_Z : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
-                    case KeyEvent.VK_E, KeyEvent.VK_ENTER : ControleColonne.getInstance().setDirectionCourante(); break;
+                    case KeyEvent.VK_A : ControleColonne.getInstance().setDirectionCourante(); break;
+                    case KeyEvent.VK_ENTER, KeyEvent.VK_E : ControleInteraction.getInstance().setInteractionCourante(Interaction.Entrée); break;
                 }
             }
         });
     }
-
 
     private void chargerLesIcones() {
         icoHero = chargerIcone("Images/Prof_Idle.png");
@@ -94,9 +96,10 @@ public class VueControleurGyromite extends JFrame implements Observer {
         setSize(400, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
-        JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
+        JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX+1)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
         tabJLabel = new JLabel[sizeX][sizeY];
+        
 
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
@@ -108,7 +111,6 @@ public class VueControleurGyromite extends JFrame implements Observer {
         add(grilleJLabels);
     }
 
-    
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
@@ -142,6 +144,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         mettreAJourAffichage();
+        jeu.meilleurScore();
         /*
         SwingUtilities.invokeLater(new Runnable() {
                     @Override

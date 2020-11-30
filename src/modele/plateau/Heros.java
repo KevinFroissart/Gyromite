@@ -9,6 +9,7 @@ package modele.plateau;
  * Héros du jeu
  */
 public class Heros extends EntiteDynamique {
+
     public Heros(Jeu _jeu) {
         super(_jeu);
     }

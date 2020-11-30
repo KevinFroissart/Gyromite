@@ -244,6 +244,7 @@ public class Jeu {
                     Colonne col = new Colonne(this);
                     addEntite(col, x, y);
                     ControleColonne.getInstance().addEntiteDynamique(col);
+                    ordonnanceur.add(ControleColonne.getInstance());
                     break;
                 case "Mur":
                     addEntite(new Mur(this), x, y);

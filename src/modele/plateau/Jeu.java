@@ -6,12 +6,15 @@
 package modele.plateau;
 
 import modele.deplacements.Controle4Directions;
+import modele.deplacements.ControleColonne;
 import modele.deplacements.Direction;
 import modele.deplacements.Gravite;
 import modele.deplacements.Ordonnanceur;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.io.*;
 
 /** Actuellement, cette classe gère les postions
  * (ajouter conditions de victoire, chargement du plateau, etc.)
@@ -54,15 +57,6 @@ public class Jeu {
     }
     
     private void initialisationDesEntites() {
-        hector = new Heros(this);
-        addEntite(hector, 2, 1);
-
-        Gravite g = new Gravite();
-        g.addEntiteDynamique(hector);
-        ordonnanceur.add(g);
-
-        Controle4Directions.getInstance().addEntiteDynamique(hector);
-        ordonnanceur.add(Controle4Directions.getInstance());
 
         // murs extérieurs horizontaux
         for (int x = 0; x < 20; x++) {
@@ -79,9 +73,7 @@ public class Jeu {
         addEntite(new Mur(this), 2, 6);
         addEntite(new Mur(this), 3, 6);
 
-        addEntite(new Colonne(this), 4, 8);
-        addEntite(new Colonne(this), 4, 7);
-        addEntite(new Colonne(this), 4, 6);
+        LoadLevel("level1");
     }
 
     private void addEntite(Entite e, int x, int y) {
@@ -172,5 +164,53 @@ public class Jeu {
 
     public Ordonnanceur getOrdonnanceur() {
         return ordonnanceur;
+    }
+
+    /**
+     * Read a CSV file that contains the objects of the level
+     * @param levelName
+     */
+    private void LoadLevel(String levelName) {
+        ArrayList<String[]> objects = new ArrayList<String[]>();
+        String line;
+
+        //reads all lines of the level file
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Levels/" + levelName + ".csv"));
+            while((line = br.readLine()) != null) {
+                //split each element of a line
+                objects.add(line.split(","));
+            }
+        } catch (IOException e) {
+            System.err.println("le fichier de niveau n'est pas valide");
+            e.printStackTrace();
+        }
+
+        for (String[] obj : objects) {
+            int x = Integer.parseInt(obj[1]);
+            int y = Integer.parseInt(obj[2]);
+
+            switch(obj[0]) {
+                case "Heros":
+                    hector = new Heros(this);
+                    addEntite(hector, x, y);
+
+                    Controle4Directions.getInstance().addEntiteDynamique(hector);
+                    ordonnanceur.add(Controle4Directions.getInstance());
+
+                    Gravite g = new Gravite();
+                    g.addEntiteDynamique(hector);
+                    ordonnanceur.add(g);
+                    break;
+                case "Colonne":
+                    Colonne col = new Colonne(this);
+                    addEntite(col, x, y);
+                    ControleColonne.getInstance().addEntiteDynamique(col);
+                    break;
+                case "Mur":
+                    addEntite(new Mur(this), x, y);
+                    break;
+            }
+        }
     }
 }

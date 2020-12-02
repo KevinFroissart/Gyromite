@@ -29,17 +29,19 @@ public class ControleColonne extends RealisateurDeDeplacement {
         boolean ret = false;
         
         for (EntiteDynamique e : lstEntitesDynamiques) {
-            if (directionCourante != null && nbrDeplacement < HAUTEUR_DEPLACEMENT){
+            int nbrColonne = lstEntitesDynamiques.size();
+            if (directionCourante != null && nbrDeplacement < HAUTEUR_DEPLACEMENT * nbrColonne){
                 ret = e.avancerDirectionChoisie(directionCourante);
-                nbrDeplacement++;
+                if (ret) 
+                    nbrDeplacement++;
+                //HAUTEUR_DEPLACEMENT * (lstEntitesDynamiques.size() + 1)
             }
-            else if (nbrDeplacement >= HAUTEUR_DEPLACEMENT) {
+            else if (nbrDeplacement >= HAUTEUR_DEPLACEMENT * nbrColonne) {
                 resetDirection();
                 estEnHaut = !estEnHaut;
                 nbrDeplacement = 0;
             }
         }
-        //System.out.println(directionCourante);
         
         return ret;
     }

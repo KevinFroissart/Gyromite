@@ -146,7 +146,7 @@ public class Jeu {
 
         Point pCourant = map.get(e);
 
-        if(contenuDansGrille(pCourant) && i == Interaction.Entrée || i == Interaction.e){
+        if(contenuDansGrille(pCourant) && i == Interaction.Entree || i == Interaction.e){
             if(objetALaPosition(pCourant).getClass() == Bombe.class && objetALaPosition(pCourant).getClass() != Heros.class){
                 retour = true; 
                 supprimerEntite(objetALaPosition(pCourant), (int) pCourant.getX(), (int) pCourant.getY());

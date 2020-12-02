@@ -40,6 +40,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoColonne;
     private ImageIcon icoColonneBas;
     private ImageIcon icoBombe;
+    private ImageIcon icoPoutreHorizontale;
+    private ImageIcon icoPoutreVerticale;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -64,7 +66,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_DOWN, KeyEvent.VK_S : Controle4Directions.getInstance().setDirectionCourante(Direction.bas); break;
                     case KeyEvent.VK_UP, KeyEvent.VK_Z : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
                     case KeyEvent.VK_A : ControleColonne.getInstance().setDirectionCourante(); break;
-                    case KeyEvent.VK_ENTER, KeyEvent.VK_E : ControleInteraction.getInstance().setInteractionCourante(Interaction.Entrée); break;
+                    case KeyEvent.VK_ENTER, KeyEvent.VK_E : ControleInteraction.getInstance().setInteractionCourante(Interaction.Entree); break;
                 }
             }
         });
@@ -78,6 +80,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoColonneBas = chargerIcone("Images/Colonne_bottom.png");
         icoMur = chargerIcone("Images/Mur.png");
         icoBombe = chargerIcone("Images/Bomb.png");
+        icoPoutreHorizontale = chargerIcone("Images/Poutre_Horizontale.png");
+        icoPoutreVerticale = chargerIcone("Images/Poutre_Verticale.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {

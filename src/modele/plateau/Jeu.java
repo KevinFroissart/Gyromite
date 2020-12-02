@@ -33,7 +33,7 @@ public class Jeu {
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
     private int bombe_restante = 0;
-    private int nb_vie = 3;
+    public int nb_vie = 3;
     private int score = 0;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
@@ -120,6 +120,12 @@ public class Jeu {
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             if(objetALaPosition(pCible) != null){
                 if(objetALaPosition(pCible).getClass() == Bombe.class){ deplacement = true; bombe = true; }
+                if(objetALaPosition(pCible).getClass() == Heros.class && 
+                    e.getClass() == Colonne.class){
+                        nb_vie--;
+                        deplacerEntite(objetALaPosition(pCible), Direction.gauche);
+                        deplacement = true; 
+                    }
             }
             if(objetALaPosition(pCible) == null) deplacement = true; 
 

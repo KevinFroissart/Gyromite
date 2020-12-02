@@ -22,7 +22,7 @@ public class ControleInteraction extends RealisateurDeDeplacement {
     public boolean realiserDeplacement() {
         boolean ret = false;
         for (EntiteDynamique e : lstEntitesDynamiques) {
-            if (interactionCourante != null && interactionCourante == Interaction.Entrée || interactionCourante == Interaction.e){
+            if (interactionCourante != null && interactionCourante == Interaction.Entree || interactionCourante == Interaction.e){
                 if (e.interactionObjetCourant(interactionCourante))
                     ret = true;
             }

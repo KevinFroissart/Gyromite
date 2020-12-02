@@ -42,7 +42,6 @@ public class ControleColonne extends RealisateurDeDeplacement {
                 nbrDeplacement = 0;
             }
         }
-        System.out.println(nbrDeplacement);
         
         return ret;
     }

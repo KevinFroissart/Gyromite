@@ -31,7 +31,9 @@ public class Jeu {
     private final String SCOREPATH = System.getProperty("user.dir") + "\\ressources\\highscore.txt";
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
-    private int score;
+    private int bombe_restante = 0;
+    private int nb_vie = 3;
+    private int score = 0;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -54,7 +56,6 @@ public class Jeu {
     }
 
     public void start(long _pause) {
-        score = 0;
         ordonnanceur.start(_pause);
     }
     
@@ -114,12 +115,22 @@ public class Jeu {
         
         Point pCible = calculerPointCible(pCourant, d);
         
-        if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null) { // a adapter (collisions murs, etc.)
+        boolean deplacement = false;
+        boolean bombe = false;
+
+        if (contenuDansGrille(pCible)){ // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
+            if(objetALaPosition(pCible) != null){
+                if(objetALaPosition(pCible).getClass() == Bombe.class){ deplacement = true; bombe = true; }
+            }
+            if(objetALaPosition(pCible) == null) deplacement = true; 
+
+            if(deplacement)
             switch (d) {
                 case bas, haut, s, z:
                     if (cmptDeplV.get(e) == null) {
                         cmptDeplV.put(e, 1);
+                        if(bombe){ addPoint(50); bombe_restante--; }
 
                         retour = true;
                     }
@@ -127,8 +138,9 @@ public class Jeu {
                 case gauche, droite, q, d:
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
-                        retour = true;
+                        if(bombe){ addPoint(50); bombe_restante--; }
 
+                        retour = true;
                     }
                     break;
             }
@@ -255,6 +267,11 @@ public class Jeu {
                 case "Mur":
                     addEntite(new Mur(this), x, y);
                     break;
+                case "Bombe":
+                    Bombe bombe = new Bombe(this);
+                    addEntite(bombe, x, y);
+                    bombe_restante++;
+                    break;
             }
         }
     }
@@ -290,4 +307,18 @@ public class Jeu {
         }
         return retour;
     }
+
+    public boolean gameFinished(){
+        boolean retour = false;
+
+        if(bombe_restante == 0) retour = true;
+        if(nb_vie == 0) retour = true;
+        if(retour){
+            if(meilleurScore()) System.out.println("Nouveau Record!");
+            else System.out.println(score + " points");
+        }
+
+        return retour;
+    }
+
 }

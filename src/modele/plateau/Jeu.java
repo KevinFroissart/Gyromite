@@ -126,6 +126,10 @@ public class Jeu {
                         deplacerEntite(objetALaPosition(pCible), Direction.gauche);
                         deplacement = true; 
                     }
+                if(objetALaPosition(pCible).getClass() == Heros.class && e.getClass() == Bot.class){
+                    nb_vie--;
+                    deplacement = false;
+                }
             }
             if(objetALaPosition(pCible) == null) deplacement = true; 
 
@@ -311,7 +315,6 @@ public class Jeu {
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
-        System.out.println(Integer.parseInt(highscore));
         return highscore == null ? nouveauMeilleurScore() : score > Integer.parseInt(highscore) ? nouveauMeilleurScore() : false;
     }
 

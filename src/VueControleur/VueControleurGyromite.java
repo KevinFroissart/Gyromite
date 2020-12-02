@@ -152,6 +152,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         mettreAJourAffichage();
+        if(jeu.gameFinished()) ;
         /*
         SwingUtilities.invokeLater(new Runnable() {
                     @Override

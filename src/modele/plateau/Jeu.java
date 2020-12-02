@@ -81,9 +81,6 @@ public class Jeu {
             addEntite(new Mur(this), 19, y);
         }
 
-        addEntite(new Mur(this), 2, 6);
-        addEntite(new Mur(this), 3, 6);
-
         LoadLevel("level1");
     }
 
@@ -274,9 +271,14 @@ public class Jeu {
                     addEntite(new Mur(this), x, y);
                     break;
                 case "Bombe":
-                    Bombe bombe = new Bombe(this);
-                    addEntite(bombe, x, y);
+                    addEntite(new Bombe(this), x, y);
                     bombe_restante++;
+                    break;
+                case "PoutreVerticale":
+                    addEntite(new PoutreVerticale(this), x, y);
+                    break;
+                case "PoutreHorizontale":
+                    addEntite(new PoutreHorizontale(this), x, y);
                     break;
             }
         }

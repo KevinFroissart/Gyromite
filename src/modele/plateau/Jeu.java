@@ -147,14 +147,14 @@ public class Jeu {
         Point pCourant = map.get(e);
 
         if(contenuDansGrille(pCourant) && i == Interaction.Entrée || i == Interaction.e){
-            if(objetALaPosition(pCourant).getClass() == Mur.class && objetALaPosition(pCourant).getClass() != Heros.class){
+            if(objetALaPosition(pCourant).getClass() == Bombe.class && objetALaPosition(pCourant).getClass() != Heros.class){
                 retour = true; 
                 supprimerEntite(objetALaPosition(pCourant), (int) pCourant.getX(), (int) pCourant.getY());
                 
             }
-            else if(objetALaPosition(pCourant).getClass() != Mur.class ){
+            else if(objetALaPosition(pCourant).getClass() != Bombe.class ){
                 retour = true; 
-                addEntite(new Mur(this), (int) pCourant.getX(), (int) pCourant.getY());
+                addEntite(new Bombe(this), (int) pCourant.getX(), (int) pCourant.getY());
             }
         }
 

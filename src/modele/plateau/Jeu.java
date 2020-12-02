@@ -31,9 +31,9 @@ public class Jeu {
     private final String SCOREPATH = System.getProperty("user.dir") + "\\ressources\\highscore.txt";
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
-    private int bombe_restante;
-    private int nb_vie;
-    private int score;
+    private int bombe_restante = 0;
+    private int nb_vie = 3;
+    private int score = 0;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -56,8 +56,6 @@ public class Jeu {
     }
 
     public void start(long _pause) {
-        score = 0;
-        nb_vie = 3;
         ordonnanceur.start(_pause);
     }
     
@@ -123,9 +121,9 @@ public class Jeu {
         if (contenuDansGrille(pCible)){ // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             if(objetALaPosition(pCible) != null){
-                if(objetALaPosition(pCible).getClass() == Bombe.class) deplacement = true;
+                if(objetALaPosition(pCible).getClass() == Bombe.class){ deplacement = true; bombe = true; }
             }
-            if(objetALaPosition(pCible) == null){ deplacement = true; bombe = true; }
+            if(objetALaPosition(pCible) == null) deplacement = true; 
 
             if(deplacement)
             switch (d) {
@@ -315,7 +313,6 @@ public class Jeu {
 
         if(bombe_restante == 0) retour = true;
         if(nb_vie == 0) retour = true;
-
         if(retour){
             if(meilleurScore()) System.out.println("Nouveau Record!");
             else System.out.println(score + " points");

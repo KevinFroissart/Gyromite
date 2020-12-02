@@ -5,13 +5,20 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.sound.sampled.AudioInputStream; 
+import javax.sound.sampled.AudioSystem; 
+import javax.sound.sampled.Clip; 
+import javax.sound.sampled.LineUnavailableException; 
+import javax.sound.sampled.UnsupportedAudioFileException; 
 
 import modele.deplacements.Controle4Directions;
 import modele.deplacements.ControleColonne;
@@ -54,6 +61,23 @@ public class VueControleurGyromite extends JFrame implements Observer {
         chargerLesIcones();
         placerLesComposantsGraphiques();
         ajouterEcouteurClavier();
+        playMusic();
+    }
+
+    private void playMusic() { 
+
+        try{
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("ressources/gyromite-music.wav").getAbsoluteFile()); 
+            Clip clip = AudioSystem.getClip(); 
+            clip.open(audioInputStream); 
+            clip.loop(Clip.LOOP_CONTINUOUSLY); 
+        } catch(IOException e){
+            e.printStackTrace();
+        } catch(LineUnavailableException e){
+            e.printStackTrace();
+        } catch(UnsupportedAudioFileException e){
+            e.printStackTrace();
+        }
     }
 
     private void ajouterEcouteurClavier() {

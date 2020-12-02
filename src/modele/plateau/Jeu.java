@@ -147,14 +147,14 @@ public class Jeu {
         Point pCourant = map.get(e);
 
         if(contenuDansGrille(pCourant) && i == Interaction.Entrée || i == Interaction.e){
-            if(objetALaPosition(pCourant).getClass() == Mur.class && objetALaPosition(pCourant).getClass() != Heros.class){
+            if(objetALaPosition(pCourant).getClass() == Bombe.class && objetALaPosition(pCourant).getClass() != Heros.class){
                 retour = true; 
                 supprimerEntite(objetALaPosition(pCourant), (int) pCourant.getX(), (int) pCourant.getY());
                 
             }
-            else if(objetALaPosition(pCourant).getClass() != Mur.class ){
+            else if(objetALaPosition(pCourant).getClass() != Bombe.class ){
                 retour = true; 
-                addEntite(new Mur(this), (int) pCourant.getX(), (int) pCourant.getY());
+                addEntite(new Bombe(this), (int) pCourant.getX(), (int) pCourant.getY());
             }
         }
 
@@ -250,7 +250,7 @@ public class Jeu {
                     }
                     
                     ControleColonne.getInstance().addEntiteDynamique(col);
-                    ordonnanceur.add(ControleColonne.getInstance());
+                    //ordonnanceur.add(ControleColonne.getInstance());
                     break;
                 case "Mur":
                     addEntite(new Mur(this), x, y);
@@ -263,32 +263,27 @@ public class Jeu {
         return score;
     }
 
-    public void setPoint(int point){
+    public void addPoint(int point){
         score += point;
     }
 
     public boolean meilleurScore(){
-        String highscore2 = "0";
+        String highscore = "";
 
         try(BufferedReader lectureFichier = new BufferedReader(new FileReader(SCOREPATH))) {
-            String highscore = lectureFichier.readLine();
-            while(highscore != null){
-                //System.out.println(highscore);
-                highscore = lectureFichier.readLine();
-
-            }
+            highscore = lectureFichier.readLine().replaceAll("[^a-zA-Z0-9]", "");
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
-        //highscore = highscore.substring(3, highscore.length());
-        return highscore2 == null ? nouveauMeilleurScore() : score > Integer.parseInt(highscore2) ? nouveauMeilleurScore() : false;
+        System.out.println(Integer.parseInt(highscore));
+        return highscore == null ? nouveauMeilleurScore() : score > Integer.parseInt(highscore) ? nouveauMeilleurScore() : false;
     }
 
     public boolean nouveauMeilleurScore(){
         boolean retour = false;
         
         try (BufferedWriter ecritureFichier = new BufferedWriter(new FileWriter(SCOREPATH))) {
-            ecritureFichier.write(score);
+            ecritureFichier.write(String.valueOf(score));
             retour = true;
         } catch (IOException e) {
             e.printStackTrace();

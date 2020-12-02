@@ -241,8 +241,14 @@ public class Jeu {
                     ordonnanceur.add(g);
                     break;
                 case "Colonne":
-                    Colonne col = new Colonne(this);
-                    addEntite(col, x, y);
+                    BlocColonne col = new BlocColonne(this);
+                    for(int i = 2; i < obj.length; i++)
+                    {
+                        Colonne elemCol = new Colonne(this);
+                        addEntite(elemCol, x, Integer.parseInt(obj[i]));
+                        col.addColonne(elemCol);
+                    }
+                    
                     ControleColonne.getInstance().addEntiteDynamique(col);
                     ordonnanceur.add(ControleColonne.getInstance());
                     break;

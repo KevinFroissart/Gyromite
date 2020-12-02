@@ -49,6 +49,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoBombe;
     private ImageIcon icoPoutreHorizontale;
     private ImageIcon icoPoutreVerticale;
+    private ImageIcon gameOverScreen;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -177,10 +178,16 @@ public class VueControleurGyromite extends JFrame implements Observer {
         }
     }
 
+    public void AfficherGameOver() {
+        //afficher image gameover
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         mettreAJourAffichage();
-        if(jeu.gameFinished()) ;
+        if(jeu.gameFinished()) {
+            AfficherGameOver();
+        } ;
         /*
         SwingUtilities.invokeLater(new Runnable() {
                     @Override

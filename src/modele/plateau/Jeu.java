@@ -250,7 +250,7 @@ public class Jeu {
                     }
                     
                     ControleColonne.getInstance().addEntiteDynamique(col);
-                    //ordonnanceur.add(ControleColonne.getInstance());
+                    ordonnanceur.add(ControleColonne.getInstance());
                     break;
                 case "Mur":
                     addEntite(new Mur(this), x, y);

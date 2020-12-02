@@ -35,10 +35,10 @@ public class ControleColonne extends RealisateurDeDeplacement {
             }
             else if (nbrDeplacement >= HAUTEUR_DEPLACEMENT) {
                 resetDirection();
+                estEnHaut = !estEnHaut;
                 nbrDeplacement = 0;
             }
         }
-        estEnHaut = !estEnHaut;
         System.out.println(directionCourante);
         
         return ret;

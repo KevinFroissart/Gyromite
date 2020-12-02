@@ -155,6 +155,10 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     tabJLabel[x][y].setIcon(icoMur);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
+                } else if (jeu.getGrille()[x][y] instanceof PoutreVerticale){
+                    tabJLabel[x][y].setIcon(icoPoutreVerticale);
+                } else if (jeu.getGrille()[x][y] instanceof PoutreHorizontale){
+                    tabJLabel[x][y].setIcon(icoPoutreHorizontale);
                 } else if (jeu.getGrille()[x][y] instanceof Colonne) {
                     //si on a une colonne, on affiche un sprite different selon la position de 
                     //la colonne (pour afficher le haut et le bas)

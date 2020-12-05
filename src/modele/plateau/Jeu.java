@@ -10,6 +10,7 @@ import modele.deplacements.ControleColonne;
 import modele.deplacements.ControleInteraction;
 import modele.deplacements.Direction;
 import modele.deplacements.Gravite;
+import modele.deplacements.IA;
 import modele.deplacements.Interaction;
 import modele.deplacements.Ordonnanceur;
 import java.io.BufferedReader;
@@ -125,6 +126,10 @@ public class Jeu {
                         deplacerEntite(objetALaPosition(pCible), Direction.gauche);
                         deplacement = true; 
                     }
+                if(objetALaPosition(pCible).getClass() == Heros.class && e.getClass() == Bot.class){
+                    nb_vie--;
+                    deplacement = false;
+                }
             }
             if(objetALaPosition(pCible) == null) deplacement = true; 
 
@@ -231,6 +236,7 @@ public class Jeu {
                 //split each element of a line
                 objects.add(line.split(","));
             }
+            br.close();
         } catch (IOException e) {
             System.err.println("le fichier de niveau n'est pas valide");
             e.printStackTrace();
@@ -280,6 +286,15 @@ public class Jeu {
                 case "PoutreHorizontale":
                     addEntite(new PoutreHorizontale(this), x, y);
                     break;
+                case "Smick":
+                    Bot smick = new Bot(this);
+                    addEntite(smick, x, y);
+                    Gravite g2 = new Gravite();
+                    g2.addEntiteDynamique(smick);
+                    ordonnanceur.add(g2);
+                    IA.getInstance().addEntiteDynamique(smick);
+                    ordonnanceur.add(IA.getInstance());
+                    break;
             }
         }
     }
@@ -300,7 +315,6 @@ public class Jeu {
         } catch(IOException ioe){
             ioe.printStackTrace();
         }
-        System.out.println(Integer.parseInt(highscore));
         return highscore == null ? nouveauMeilleurScore() : score > Integer.parseInt(highscore) ? nouveauMeilleurScore() : false;
     }
 

@@ -120,6 +120,12 @@ public class Jeu {
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             if(objetALaPosition(pCible) != null){
                 if(objetALaPosition(pCible).getClass() == Bombe.class){ deplacement = true; bombe = true; }
+                if(objetALaPosition(pCible).getClass() == Heros.class && e != null){
+                    if(e.getClass() == Bot.class){
+                        nb_vie--;
+                        deplacement = false;
+                    }
+                }
                 if(objetALaPosition(pCible).getClass() == Heros.class && 
                     e.getClass() == Colonne.class){
                         nb_vie--;

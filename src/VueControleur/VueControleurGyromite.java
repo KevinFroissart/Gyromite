@@ -24,6 +24,7 @@ import modele.deplacements.Controle4Directions;
 import modele.deplacements.ControleColonne;
 import modele.deplacements.ControleInteraction;
 import modele.deplacements.Direction;
+import modele.deplacements.IA;
 import modele.deplacements.Interaction;
 import modele.plateau.*;
 
@@ -50,6 +51,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoPoutreHorizontale;
     private ImageIcon icoPoutreVerticale;
     private ImageIcon gameOverScreen;
+    private ImageIcon icoSmick;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -63,10 +65,14 @@ public class VueControleurGyromite extends JFrame implements Observer {
         placerLesComposantsGraphiques();
         ajouterEcouteurClavier();
         playMusic();
+        lancerIA();
+    }
+
+    private void lancerIA(){
+        IA.getInstance().setDirectionCourante(Direction.gauche);
     }
 
     private void playMusic() { 
-
         try{
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("ressources/gyromite-music.wav").getAbsoluteFile()); 
             Clip clip = AudioSystem.getClip(); 
@@ -107,6 +113,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoBombe = chargerIcone("Images/Bomb.png");
         icoPoutreHorizontale = chargerIcone("Images/Poutre_Horizontale.png");
         icoPoutreVerticale = chargerIcone("Images/Poutre_Verticale.png");
+        icoSmick = chargerIcone("Images/Smick_idle.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -150,10 +157,11 @@ public class VueControleurGyromite extends JFrame implements Observer {
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
-                    // System.out.println("Héros !");
                     tabJLabel[x][y].setIcon(icoHero);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
+                } else if (jeu.getGrille()[x][y] instanceof Bot) {
+                    tabJLabel[x][y].setIcon(icoSmick);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
                 } else if (jeu.getGrille()[x][y] instanceof PoutreVerticale){

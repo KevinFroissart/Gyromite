@@ -4,7 +4,7 @@ import modele.plateau.EntiteDynamique;
 import java.util.Random;
 
 public class IA extends RealisateurDeDeplacement {
-    private Direction directionCourante;
+    private static Direction directionCourante;
     // Design pattern singleton
     private static IA c3d;
 
@@ -13,6 +13,10 @@ public class IA extends RealisateurDeDeplacement {
             c3d = new IA();
         }
         return c3d;
+    }
+
+    public static Direction getDirectionCourante(){
+        return directionCourante;
     }
 
     public void setDirectionCourante(Direction _directionCourante) {

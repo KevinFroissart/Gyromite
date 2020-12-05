@@ -74,7 +74,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private void lancerIA(){
         Random r = new Random();
         if(r.nextInt(2) == 1) IA.getInstance().setDirectionCourante(Direction.gauche);
-        IA.getInstance().setDirectionCourante(Direction.droite);
+        else IA.getInstance().setDirectionCourante(Direction.droite);
     }
 
     private void playMusic() { 
@@ -138,7 +138,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     private void placerLesComposantsGraphiques() {
         setTitle("Gyromite");
-        setSize(400, 250);
+        setSize(sizeX * 20, sizeY * 23);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX+1)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
@@ -164,10 +164,10 @@ public class VueControleurGyromite extends JFrame implements Observer {
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
-                    //Direction d = Controle4Directions.getInstance().getDirectionCourante();
-                    //if( d == Direction.droite) tabJLabel[x][y].setIcon(icoHeroDroite);
-                    //if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoHero);
-                    tabJLabel[x][y].setIcon(icoHero);
+                    Direction d = Controle4Directions.getInstance().getLastDirection();
+                    if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoHero);
+                    if( d == Direction.droite) tabJLabel[x][y].setIcon(icoHeroDroite);
+                    else tabJLabel[x][y].setIcon(icoHero);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {

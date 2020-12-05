@@ -119,20 +119,25 @@ public class Jeu {
         if (contenuDansGrille(pCible)){ // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             if(objetALaPosition(pCible) != null){
-                if(objetALaPosition(pCible).getClass() == Bombe.class){ deplacement = true; bombe = true; }
-                if(objetALaPosition(pCible).getClass() == Heros.class && e != null){
+                if(objetALaPosition(pCible) instanceof Bombe){ 
+                    if(e instanceof Bot) ;
+                    else {
+                        deplacement = true;
+                        bombe = true;
+                    } 
+                }
+                if(objetALaPosition(pCible) instanceof Heros && e != null){
                     if(e.getClass() == Bot.class){
                         nb_vie--;
                         deplacement = false;
                     }
                 }
-                if(objetALaPosition(pCible).getClass() == Heros.class && 
-                    e.getClass() == Colonne.class){
+                if(objetALaPosition(pCible) instanceof Heros && e instanceof Colonne){
                         nb_vie--;
                         deplacerEntite(objetALaPosition(pCible), Direction.gauche);
                         deplacement = true; 
                     }
-                if(objetALaPosition(pCible).getClass() == Heros.class && e.getClass() == Bot.class){
+                if(objetALaPosition(pCible) instanceof Heros && e instanceof Bot){
                     nb_vie--;
                     deplacement = false;
                 }
@@ -339,8 +344,8 @@ public class Jeu {
     public boolean gameFinished(){
         boolean retour = false;
 
-        if(bombe_restante == 0) retour = true;
-        if(nb_vie == 0) retour = true;
+        if(bombe_restante <= 0) retour = true;
+        if(nb_vie <= 0) retour = true;
         if(retour){
             if(meilleurScore()) System.out.println("Nouveau Record!");
             else System.out.println(score + " points");

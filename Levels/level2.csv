@@ -1,3 +1,8 @@
-Heros,2,1
-Bombe,6,8
-Bombe,9,8
+SIZE,40,20
+Heros,2,15
+Colonne,4,18,17,16
+Colonne,5,18,17,16
+Bombe,3,5
+PoutreHorizontale,3,16
+PoutreHorizontale,2,16
+Smick,10,15

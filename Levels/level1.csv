@@ -1,8 +1,8 @@
+SIZE,40,20
 Heros,2,1
-Colonne,4,7,6,5
-Colonne,7,7,6,5
-Colonne,5,7,6,5
-Bombe,6,8
+Colonne,4,8,7,6
+Colonne,5,8,7,6
+Bombe,3,5
 PoutreHorizontale,3,6
 PoutreHorizontale,2,6
 Smick,8,8

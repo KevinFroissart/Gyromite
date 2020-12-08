@@ -18,7 +18,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem; 
 import javax.sound.sampled.Clip; 
 import javax.sound.sampled.LineUnavailableException; 
-import javax.sound.sampled.UnsupportedAudioFileException; 
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.util.Random;
 
 import modele.deplacements.Controle4Directions;
 import modele.deplacements.ControleColonne;
@@ -42,6 +43,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     // icones affichées dans la grille
     private ImageIcon icoHero;
+    private ImageIcon icoHeroDroite;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
     private ImageIcon icoColonneHaut;
@@ -52,6 +54,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoPoutreVerticale;
     private ImageIcon gameOverScreen;
     private ImageIcon icoSmick;
+    private ImageIcon icoSmickDroite;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -69,7 +72,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
     }
 
     private void lancerIA(){
-        IA.getInstance().setDirectionCourante(Direction.gauche);
+        Random r = new Random();
+        if(r.nextInt(2) == 1) IA.getInstance().setDirectionCourante(Direction.gauche);
+        else IA.getInstance().setDirectionCourante(Direction.droite);
     }
 
     private void playMusic() { 
@@ -105,6 +110,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     private void chargerLesIcones() {
         icoHero = chargerIcone("Images/Prof_Idle.png");
+        icoHeroDroite = chargerIcone("Images/Prof_Idle_droite.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoColonneHaut = chargerIcone("Images/Colonne_top.png");
         icoColonne = chargerIcone("Images/Colonne_middle.png");
@@ -114,6 +120,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoPoutreHorizontale = chargerIcone("Images/Poutre_Horizontale.png");
         icoPoutreVerticale = chargerIcone("Images/Poutre_Verticale.png");
         icoSmick = chargerIcone("Images/Smick_idle.png");
+        icoSmickDroite = chargerIcone("Images/Smick_idle_droite.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -131,7 +138,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     private void placerLesComposantsGraphiques() {
         setTitle("Gyromite");
-        setSize(400, 250);
+        setSize(sizeX * 20, sizeY * 23);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX+1)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
@@ -157,11 +164,16 @@ public class VueControleurGyromite extends JFrame implements Observer {
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
-                    tabJLabel[x][y].setIcon(icoHero);
+                    Direction d = Controle4Directions.getInstance().getLastDirection();
+                    if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoHero);
+                    if( d == Direction.droite) tabJLabel[x][y].setIcon(icoHeroDroite);
+                    else tabJLabel[x][y].setIcon(icoHero);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {
-                    tabJLabel[x][y].setIcon(icoSmick);
+                    Direction d = IA.getInstance().getDirectionCourante();
+                    if( d == Direction.droite) tabJLabel[x][y].setIcon(icoSmickDroite);
+                    if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoSmick);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
                 } else if (jeu.getGrille()[x][y] instanceof PoutreVerticale){

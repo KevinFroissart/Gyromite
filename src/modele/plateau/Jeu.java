@@ -30,8 +30,8 @@ import java.io.*;
 public class Jeu {
 
     private final String SCOREPATH = System.getProperty("user.dir") + "\\ressources\\highscore.txt";
-    public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 10;
+    public static int SIZE_X = 0;
+    public static int SIZE_Y = 0;
     private int bombe_restante = 0;
     public int nb_vie = 3;
     private int score = 0;
@@ -44,7 +44,7 @@ public class Jeu {
     private Heros hector;
 
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
-    private Entite[][] grilleEntites = new Entite[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
+    private Entite[][] grilleEntites; // permet de récupérer une entité à partir de ses coordonnées
 
     private Ordonnanceur ordonnanceur = new Ordonnanceur(this);
 
@@ -70,19 +70,6 @@ public class Jeu {
     }
     
     private void initialisationDesEntites() {
-
-        // murs extérieurs horizontaux
-        for (int x = 0; x < 20; x++) {
-            addEntite(new Mur(this), x, 0);
-            addEntite(new Mur(this), x, 9);
-        }
-
-        // murs extérieurs verticaux
-        for (int y = 1; y < 9; y++) {
-            addEntite(new Mur(this), 0, y);
-            addEntite(new Mur(this), 19, y);
-        }
-
         LoadLevel("level" + niveau_courant);
     }
 
@@ -92,7 +79,7 @@ public class Jeu {
     }
     
     private void supprimerEntite(Entite e, int x, int y){
-        grilleEntites[x][y] = null;
+        //grilleEntites[x][y] = null;
         map.remove(e);
     }
     
@@ -120,18 +107,31 @@ public class Jeu {
         if (contenuDansGrille(pCible)){ // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             if(objetALaPosition(pCible) != null){
-                if(objetALaPosition(pCible).getClass() == Bombe.class && e.getClass() == Heros.class){ deplacement = true; bombe = true; }
-                if(objetALaPosition(pCible).getClass() == Heros.class && e != null){
+                if(objetALaPosition(pCible) instanceof Bombe){ 
+                    if(e instanceof Bot) ;
+                    else {
+                        deplacement = true;
+                        bombe = true;
+                    } 
+                }
+                if(objetALaPosition(pCible) instanceof Heros && e != null){
                     if(e.getClass() == Bot.class){
                         nb_vie--;
                         deplacement = false;
                     }
                 }
-                if(objetALaPosition(pCible).getClass() == Heros.class && 
-                    e.getClass() == Colonne.class) {
-                        nb_vie--;
-                        deplacerEntite(objetALaPosition(pCible), Direction.gauche);
-                        deplacement = true; 
+                if(objetALaPosition(pCible) instanceof Heros && e instanceof Colonne){
+                    nb_vie--;
+                    deplacerEntite(objetALaPosition(pCible), Direction.gauche);
+                    deplacement = true; 
+                }
+                if(objetALaPosition(pCible) instanceof Colonne && e instanceof Bot){
+                   // supprimerEntite(e, (int) pCible.getX(), (int) pCible.getY());
+                    //deplacement = false; 
+                }
+                if(objetALaPosition(pCible) instanceof Heros && e instanceof Bot){
+                    nb_vie--;
+                    deplacement = false;
                 }
 
                 /*if(objetALaPosition(pCible).getClass() == Bot.class && 
@@ -256,10 +256,14 @@ public class Jeu {
             int y = Integer.parseInt(obj[2]);
 
             switch(obj[0]) {
+                case "SIZE":
+                    SIZE_X = x;
+                    SIZE_Y = y;
+                    grilleEntites = new Entite[SIZE_X][SIZE_Y]; 
+                    break;
                 case "Heros":
                     hector = new Heros(this);
                     addEntite(hector, x, y);
-
 
                     Controle4Directions.getInstance().addEntiteDynamique(hector);
                     ordonnanceur.add(Controle4Directions.getInstance());
@@ -305,6 +309,17 @@ public class Jeu {
                     ordonnanceur.add(IA.getInstance());
                     break;
             }
+        }
+        // murs extérieurs horizontaux
+        for (int xx = 0; xx < SIZE_X; xx++) {
+            addEntite(new Mur(this), xx, 0);
+            addEntite(new Mur(this), xx, SIZE_Y-1);
+        }
+
+        // murs extérieurs verticaux
+        for (int yy = 1; yy < SIZE_Y-1; yy++) {
+            addEntite(new Mur(this), 0, yy);
+            addEntite(new Mur(this), SIZE_X-1, yy);
         }
     }
     

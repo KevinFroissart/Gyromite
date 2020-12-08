@@ -22,7 +22,6 @@ import java.io.FileWriter;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.io.*;
 
 /** Actuellement, cette classe gère les postions
  * (ajouter conditions de victoire, chargement du plateau, etc.)
@@ -109,7 +108,9 @@ public class Jeu {
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             if(objetALaPosition(pCible) != null){
                 if(objetALaPosition(pCible) instanceof Bombe){ 
-                    if(e instanceof Bot) ;
+                    if(e instanceof Bot){
+                        
+                    }
                     else {
                         deplacement = true;
                         bombe = true;
@@ -244,14 +245,13 @@ public class Jeu {
             BufferedReader br = new BufferedReader(new FileReader("Levels/" + levelName + ".csv"));
             while((line = br.readLine()) != null) {
                 //split each element of a line
-                objects.add(line.split(","));
+                if(!line.substring(0,1).matches("#")) objects.add(line.split(","));
             }
             br.close();
         } catch (IOException e) {
             System.err.println("le fichier de niveau n'est pas valide");
             e.printStackTrace();
         }
-
         for (String[] obj : objects) {
             int x = Integer.parseInt(obj[1]);
             int y = Integer.parseInt(obj[2]);
@@ -303,11 +303,13 @@ public class Jeu {
                 case "Smick":
                     Bot smick = new Bot(this);
                     addEntite(smick, x, y);
+
+                    IA.getInstance().addEntiteDynamique(smick);
+                    ordonnanceur.add(IA.getInstance());
+
                     Gravite g2 = new Gravite();
                     g2.addEntiteDynamique(smick);
                     ordonnanceur.add(g2);
-                    IA.getInstance().addEntiteDynamique(smick);
-                    ordonnanceur.add(IA.getInstance());
                     break;
             }
         }

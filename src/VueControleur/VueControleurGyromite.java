@@ -72,9 +72,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     }
 
     private void lancerIA(){
-        Random r = new Random();
-        if(r.nextInt(2) == 1) IA.getInstance().setDirectionCourante(Direction.gauche);
-        else IA.getInstance().setDirectionCourante(Direction.droite);
+       IA.getInstance().setDirectionCourante(IA.directionRandom());
     }
 
     private void playMusic() { 

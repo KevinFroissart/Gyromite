@@ -35,7 +35,7 @@ public class Jeu {
     private int bombe_restante;
     public int nb_vie = 3;
     private int score = 0;
-    private int niveau_courant = 2;
+    private int niveau_courant = 1;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();

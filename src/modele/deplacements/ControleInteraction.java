@@ -15,6 +15,11 @@ public class ControleInteraction extends RealisateurDeDeplacement {
         return c3d;
     }
 
+    public static ControleInteraction reset() {
+        c3d = new ControleInteraction();
+        return c3d;
+    }
+
     public void setInteractionCourante(Interaction _interactionCourante) {
         interactionCourante = _interactionCourante;
     }

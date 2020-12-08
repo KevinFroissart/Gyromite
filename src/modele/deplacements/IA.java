@@ -37,12 +37,12 @@ public class IA extends RealisateurDeDeplacement {
                     case gauche :
                         if (e.avancerDirectionChoisie(directionCourante))
                             ret = true;
-                        //else setDirectionCourante(Direction.droite);
+                        else setDirectionCourante(Direction.droite);
                         break;
                     case droite :
                         if (e.avancerDirectionChoisie(directionCourante))
                             ret = true;
-                        //else setDirectionCourante(Direction.gauche);
+                        else setDirectionCourante(Direction.gauche);
                         break;
                 }
             else directionRandom();

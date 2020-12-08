@@ -34,7 +34,7 @@ public class Jeu {
     private int bombe_restante = 0;
     public int nb_vie = 3;
     private int score = 0;
-    private int niveau_courant = 1;
+    private int niveau_courant = 2;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -108,7 +108,6 @@ public class Jeu {
             if(objetALaPosition(pCible) != null){
                 if(objetALaPosition(pCible) instanceof Bombe){ 
                     if(e instanceof Bot){
-                        
                     }
                     else {
                         deplacement = true;
@@ -125,10 +124,6 @@ public class Jeu {
                     nb_vie--;
                     deplacerEntite(objetALaPosition(pCible), Direction.gauche);
                     deplacement = true; 
-                }
-                if(objetALaPosition(pCible) instanceof Colonne && e instanceof Bot){
-                   // supprimerEntite(e, (int) pCible.getX(), (int) pCible.getY());
-                    //deplacement = false; 
                 }
                 if(objetALaPosition(pCible) instanceof Heros && e instanceof Bot){
                     nb_vie--;
@@ -303,12 +298,8 @@ public class Jeu {
                     Bot smick = new Bot(this);
                     addEntite(smick, x, y);
 
-                    IA.getInstance().addEntiteDynamique(smick);
-                    ordonnanceur.add(IA.getInstance());
-
-                    Gravite g2 = new Gravite();
-                    g2.addEntiteDynamique(smick);
-                    ordonnanceur.add(g2);
+                    ordonnanceur.add(smick.getIA());
+                    ordonnanceur.add(smick.getGravite());
                     break;
             }
         }

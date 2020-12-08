@@ -36,6 +36,7 @@ public class Jeu {
     public int nb_vie = 3;
     private int score = 0;
     private int niveau_courant = 1;
+    private long pause;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -58,6 +59,7 @@ public class Jeu {
     }
 
     public void start(long _pause) {
+        pause = _pause;
         ordonnanceur.start(_pause);
     }
     
@@ -359,7 +361,7 @@ public class Jeu {
             ControleColonne.reset();
             ControleInteraction.reset();
             initialisationDesEntites();
-            start(300);
+            start(pause);
         } else {
             
         }

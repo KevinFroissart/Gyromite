@@ -36,7 +36,7 @@ PoutreVerticale,16,4
 PoutreVerticale,17,5
 PoutreVerticale,17,4
 PoutreVerticale,17,3
-Colonne,18,3,2,1
+Colonne,18,5,4,3
 PoutreHorizontale,19,3
 PoutreHorizontale,20,3
 PoutreHorizontale,21,3
@@ -53,7 +53,7 @@ PoutreHorizontale,31,3
 PoutreHorizontale,32,3
 PoutreHorizontale,33,3
 #Smick,31,2
-Colonne,34,3,2,1
+Colonne,34,5,4,3
 PoutreHorizontale,35,3
 PoutreHorizontale,36,3
 #trou pour descendre

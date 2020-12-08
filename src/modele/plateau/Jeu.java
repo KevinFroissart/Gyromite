@@ -356,6 +356,8 @@ public class Jeu {
             resetCmptDepl();
             IA.reset();
             Controle4Directions.reset();
+            ControleColonne.reset();
+            ControleInteraction.reset();
             initialisationDesEntites();
             start(300);
         } else {

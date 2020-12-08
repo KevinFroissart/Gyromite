@@ -21,6 +21,11 @@ public class ControleColonne extends RealisateurDeDeplacement {
         return cCol;
     }
 
+    public static ControleColonne reset() {
+        cCol = new ControleColonne();
+        return cCol;
+    }
+
     public void setDirectionCourante() {
         directionCourante = estEnHaut ? Direction.bas : Direction.haut;
     }

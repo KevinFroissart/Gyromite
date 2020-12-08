@@ -6,13 +6,13 @@ import java.util.Random;
 public class IA extends RealisateurDeDeplacement {
     private static Direction directionCourante;
     // Design pattern singleton
-    private static IA c3d;
+    private static IA ia;
 
     public static IA getInstance() {
-        if (c3d == null) {
-            c3d = new IA();
+        if (ia == null) {
+            ia = new IA();
         }
-        return c3d;
+        return ia;
     }
 
     public static Direction getDirectionCourante(){

@@ -22,7 +22,6 @@ import java.io.FileWriter;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.io.*;
 
 /** Actuellement, cette classe gère les postions
  * (ajouter conditions de victoire, chargement du plateau, etc.)
@@ -35,6 +34,7 @@ public class Jeu {
     private int bombe_restante = 0;
     public int nb_vie = 3;
     private int score = 0;
+    private int niveau_courant = 1;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
     private HashMap<Entite, Integer> cmptDeplH = new HashMap<Entite, Integer>();
@@ -69,8 +69,7 @@ public class Jeu {
     }
     
     private void initialisationDesEntites() {
-        //on pourra faire la gestion des levels ici
-        LoadLevel("level2");
+        LoadLevel("level" + niveau_courant);
     }
 
     private void addEntite(Entite e, int x, int y) {
@@ -135,6 +134,12 @@ public class Jeu {
                     nb_vie--;
                     deplacement = false;
                 }
+
+                /*if(objetALaPosition(pCible).getClass() == Bot.class && 
+                    e.getClass() == Colonne.class) {
+                        Entite cible = objetALaPosition(pCible);
+                        supprimerEntite(cible, (int) pCible.getX(), (int) pCible.getY());
+                }*/
             }
             if(objetALaPosition(pCible) == null) deplacement = true; 
 
@@ -351,17 +356,25 @@ public class Jeu {
         return retour;
     }
 
-    public boolean gameFinished(){
-        boolean retour = false;
+    public void LevelFinished() {
+        if(bombe_restante == 0) {
+            niveau_courant++;
+            /*resetCmptDepl();
+            ordonnanceur = new Ordonnanceur(this);
+            grilleEntites = new Entite[SIZE_X][SIZE_Y];
+            map = new  HashMap<Entite, Point>();
+            initialisationDesEntites();*/
+        } 
+    }
 
-        if(bombe_restante <= 0) retour = true;
-        if(nb_vie <= 0) retour = true;
-        if(retour){
+    public boolean gameFinished() {
+        if(nb_vie == 0){
             if(meilleurScore()) System.out.println("Nouveau Record!");
             else System.out.println(score + " points");
+            return true;
         }
 
-        return retour;
+        return false;
     }
 
 }

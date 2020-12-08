@@ -15,6 +15,11 @@ public class IA extends RealisateurDeDeplacement {
         return ia;
     }
 
+    public static IA reset() {
+        ia = new IA();
+        return ia;
+    }
+
     public static Direction getDirectionCourante(){
         return directionCourante;
     }

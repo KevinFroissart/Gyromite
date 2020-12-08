@@ -29,9 +29,10 @@ import java.util.ArrayList;
 public class Jeu {
 
     private final String SCOREPATH = System.getProperty("user.dir") + "\\ressources\\highscore.txt";
+    public final int NOMBRE_NIVEAU = 2;
     public static int SIZE_X = 0;
     public static int SIZE_Y = 0;
-    private int bombe_restante = 0;
+    private int bombe_restante;
     public int nb_vie = 3;
     private int score = 0;
     private int niveau_courant = 2;
@@ -348,18 +349,25 @@ public class Jeu {
     }
 
     public void LevelFinished() {
-        if(bombe_restante == 0) {
-            niveau_courant++;
-            /*resetCmptDepl();
-            ordonnanceur = new Ordonnanceur(this);
-            grilleEntites = new Entite[SIZE_X][SIZE_Y];
-            map = new  HashMap<Entite, Point>();
-            initialisationDesEntites();*/
-        } 
+        niveau_courant++;
+        if (niveau_courant <= NOMBRE_NIVEAU) {
+            ordonnanceur.clear();
+            map.clear();
+            resetCmptDepl();
+            IA.reset();
+            Controle4Directions.reset();
+            initialisationDesEntites();
+            start(300);
+        } else {
+            
+        }
     }
 
     public boolean gameFinished() {
-        if(nb_vie == 0){
+        if(bombe_restante == 0) {
+            LevelFinished();
+        } 
+        if(nb_vie == 0 || niveau_courant > NOMBRE_NIVEAU){
             if(meilleurScore()) System.out.println("Nouveau Record!");
             else System.out.println(score + " points");
             return true;

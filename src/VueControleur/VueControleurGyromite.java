@@ -157,32 +157,32 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
-                if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
+                if (jeu.getGrille()[x][y][1] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
                     Direction d = Controle4Directions.getInstance().getLastDirection();
                     if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoHero);
                     if( d == Direction.droite) tabJLabel[x][y].setIcon(icoHeroDroite);
                     else tabJLabel[x][y].setIcon(icoHero);
-                } else if (jeu.getGrille()[x][y] instanceof Mur) {
+                } else if (jeu.getGrille()[x][y][0] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
-                } else if (jeu.getGrille()[x][y] instanceof Bot) {
+                } else if (jeu.getGrille()[x][y][1] instanceof Bot) {
                     /*Direction d = IA.getInstance().getDirectionCourante();
                     if( d == Direction.droite) tabJLabel[x][y].setIcon(icoSmickDroite);
                     if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoSmick);*/
                     tabJLabel[x][y].setIcon(icoSmick);
-                } else if (jeu.getGrille()[x][y] instanceof Bombe) {
+                } else if (jeu.getGrille()[x][y][0] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
-                } else if (jeu.getGrille()[x][y] instanceof Carotte) {
+                } else if (jeu.getGrille()[x][y][0] instanceof Carotte) {
                     tabJLabel[x][y].setIcon(icoCarotte);
-                } else if (jeu.getGrille()[x][y] instanceof PoutreVerticale){
+                } else if (jeu.getGrille()[x][y][0] instanceof PoutreVerticale){
                     tabJLabel[x][y].setIcon(icoPoutreVerticale);
-                } else if (jeu.getGrille()[x][y] instanceof PoutreHorizontale){
+                } else if (jeu.getGrille()[x][y][0] instanceof PoutreHorizontale){
                     tabJLabel[x][y].setIcon(icoPoutreHorizontale);
-                } else if (jeu.getGrille()[x][y] instanceof Colonne) {
+                } else if (jeu.getGrille()[x][y][1] instanceof Colonne) {
                     //si on a une colonne, on affiche un sprite different selon la position de 
                     //la colonne (pour afficher le haut et le bas)
-                    if (!(jeu.getGrille()[x][y - 1] instanceof Colonne)) {
+                    if (!(jeu.getGrille()[x][y - 1][1] instanceof Colonne)) {
                         tabJLabel[x][y].setIcon(icoColonneHaut);
-                    } else if (!(jeu.getGrille()[x][y + 1] instanceof Colonne)) {
+                    } else if (!(jeu.getGrille()[x][y + 1][1] instanceof Colonne)) {
                         tabJLabel[x][y].setIcon(icoColonneBas);
                     } else {
                         tabJLabel[x][y].setIcon(icoColonne);

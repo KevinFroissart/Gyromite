@@ -45,7 +45,7 @@ public class Jeu {
     private Heros hector;
 
     private HashMap<Entite, Point> map = new  HashMap<Entite, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
-    private Entite[][] grilleEntites; // permet de récupérer une entité à partir de ses coordonnées
+    private Entite[][][] grilleEntites; // permet de récupérer une entité à partir de ses coordonnées
 
     private Ordonnanceur ordonnanceur = new Ordonnanceur(this);
 
@@ -62,7 +62,7 @@ public class Jeu {
         ordonnanceur.start(_pause);
     }
     
-    public Entite[][] getGrille() {
+    public Entite[][][] getGrille() {
         return grilleEntites;
     }
     
@@ -74,13 +74,13 @@ public class Jeu {
         LoadLevel("level" + niveau_courant);
     }
 
-    private void addEntite(Entite e, int x, int y) {
-        grilleEntites[x][y] = e;
+    private void addEntite(Entite e, int x, int y, int z) {
+        grilleEntites[x][y][z] = e;
         map.put(e, new Point(x, y));
     }
     
-    private void supprimerEntite(Entite e, int x, int y){
-        grilleEntites[x][y] = null;
+    private void supprimerEntite(Entite e, int x, int y, int z){
+        grilleEntites[x][y][z] = null;
         map.remove(e);
     }
     
@@ -126,9 +126,9 @@ public class Jeu {
                     deplacement = false;
                 }
 
-                if(objetALaPosition(pCible) instanceof Bot && (e instanceof Colonne || e instanceof Heros) {
+                if(objetALaPosition(pCible) instanceof Bot && (e instanceof Colonne || e instanceof Heros)) {
                     Bot cible = (Bot) objetALaPosition(pCible);
-                    supprimerEntite(cible, (int) pCible.getX(), (int) pCible.getY());
+                    supprimerEntite(cible, (int) pCible.getX(), (int) pCible.getY(), 1);
                     ordonnanceur.remove(cible.getIA());
                     ordonnanceur.remove(cible.getGravite());
                     deplacement = true;   
@@ -180,13 +180,13 @@ public class Jeu {
             Entite entite = objetALaPosition(new Point(x,y));
             if(entite instanceof Carotte){
                 retour = true;
-                supprimerEntite(objetALaPosition(new Point(x,y)), x, y);
+                supprimerEntite(objetALaPosition(new Point(x,y)), x, y, 0);
                 nb_carotte++;
             }
             else if(!(entite instanceof Carotte) && !(entite instanceof Mur) && !(entite instanceof Bombe) 
                  && !(entite instanceof Bot) && !(entite instanceof Colonne) && !(entite instanceof PoutreHorizontale)
                  && !(entite instanceof PoutreVerticale) && nb_carotte > 0){
-                addEntite(new Carotte(this), x, (y));
+                addEntite(new Carotte(this), x, (y), 0);
                 nb_carotte--;
             }
         }
@@ -208,8 +208,8 @@ public class Jeu {
     }
     
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
-        grilleEntites[pCourant.x][pCourant.y] = null;
-        grilleEntites[pCible.x][pCible.y] = e;
+        grilleEntites[pCourant.x][pCourant.y][1] = null;
+        grilleEntites[pCible.x][pCible.y][1] = e;
         map.put(e, pCible);
     }
     
@@ -223,7 +223,7 @@ public class Jeu {
         Entite retour = null;
         
         if (contenuDansGrille(p)) {
-            retour = grilleEntites[p.x][p.y];
+            retour = grilleEntites[p.x][p.y][0];
         }
         
         return retour;
@@ -261,11 +261,11 @@ public class Jeu {
                 case "SIZE":
                     SIZE_X = x;
                     SIZE_Y = y;
-                    grilleEntites = new Entite[SIZE_X][SIZE_Y]; 
+                    grilleEntites = new Entite[SIZE_X][SIZE_Y][2]; 
                     break;
                 case "Heros":
                     hector = new Heros(this);
-                    addEntite(hector, x, y);
+                    addEntite(hector, x, y, 1);
 
                     Controle4Directions.getInstance().addEntiteDynamique(hector);
                     ordonnanceur.add(Controle4Directions.getInstance());
@@ -281,7 +281,7 @@ public class Jeu {
                     for(int i = 2; i < obj.length; i++)
                     {
                         Colonne elemCol = new Colonne(this);
-                        addEntite(elemCol, x, Integer.parseInt(obj[i]));
+                        addEntite(elemCol, x, Integer.parseInt(obj[i]), 1);
                         col.addColonne(elemCol);
                     }
                     
@@ -289,21 +289,21 @@ public class Jeu {
                     ordonnanceur.add(ControleColonne.getInstance());
                     break;
                 case "Mur":
-                    addEntite(new Mur(this), x, y);
+                    addEntite(new Mur(this), x, y, 0);
                     break;
                 case "Bombe":
-                    addEntite(new Bombe(this), x, y);
+                    addEntite(new Bombe(this), x, y, 0);
                     bombe_restante++;
                     break;
                 case "PoutreVerticale":
-                    addEntite(new PoutreVerticale(this), x, y);
+                    addEntite(new PoutreVerticale(this), x, y, 0);
                     break;
                 case "PoutreHorizontale":
-                    addEntite(new PoutreHorizontale(this), x, y);
+                    addEntite(new PoutreHorizontale(this), x, y, 0);
                     break;
                 case "Smick":
                     Bot smick = new Bot(this);
-                    addEntite(smick, x, y);
+                    addEntite(smick, x, y, 1);
 
                     ordonnanceur.add(smick.getIA());
                     ordonnanceur.add(smick.getGravite());
@@ -312,14 +312,14 @@ public class Jeu {
         }
         // murs extérieurs horizontaux
         for (int xx = 0; xx < SIZE_X; xx++) {
-            addEntite(new Mur(this), xx, 0);
-            addEntite(new Mur(this), xx, SIZE_Y-1);
+            addEntite(new Mur(this), xx, 0, 0);
+            addEntite(new Mur(this), xx, SIZE_Y-1, 0);
         }
 
         // murs extérieurs verticaux
         for (int yy = 1; yy < SIZE_Y-1; yy++) {
-            addEntite(new Mur(this), 0, yy);
-            addEntite(new Mur(this), SIZE_X-1, yy);
+            addEntite(new Mur(this), 0, yy, 0);
+            addEntite(new Mur(this), SIZE_X-1, yy, 0);
         }
     }
     

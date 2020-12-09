@@ -36,9 +36,12 @@ PoutreHorizontale,29,4
 PoutreHorizontale,30,4
 #trou
 #trou
-PoutreHorizontale,33,4
-PoutreHorizontale,34,4
-PoutreHorizontale,35,4
+Corde,33,1
+Corde,33,2
+Corde,33,3
+Corde,33,4
+Corde,33,5
+PoutreHorizontale,34,3
 PoutreHorizontale,35,3
 PoutreHorizontale,36,3
 Bombe,36,2
@@ -92,7 +95,6 @@ PoutreHorizontale,3,9
 PoutreHorizontale,4,9
 PoutreHorizontale,5,9
 PoutreHorizontale,6,9
-PoutreHorizontale,7,9
 PoutreHorizontale,8,9
 PoutreHorizontale,9,9
 PoutreHorizontale,10,9
@@ -118,7 +120,17 @@ PoutreHorizontale,36,9
 PoutreHorizontale,37,9
 PoutreHorizontale,38,9
 #troisiète étage
-PoutreHorizontale,1,12
+Corde,1,10
+Corde,1,11
+Corde,1,12
+Corde,1,13
+Corde,1,14
+Corde,1,15
+Corde,1,16
+Corde,1,17
+Corde,1,18
+Bombe,10,11
+Colonne,7,11,10,9
 PoutreHorizontale,2,12
 PoutreHorizontale,3,12
 PoutreHorizontale,4,12

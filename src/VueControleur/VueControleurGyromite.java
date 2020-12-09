@@ -55,6 +55,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon gameOverScreen;
     private ImageIcon icoSmick;
     private ImageIcon icoSmickDroite;
+    private ImageIcon icoCarotte;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -100,7 +101,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_DOWN, KeyEvent.VK_S : Controle4Directions.getInstance().setDirectionCourante(Direction.bas); break;
                     case KeyEvent.VK_UP, KeyEvent.VK_Z : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
                     case KeyEvent.VK_A : ControleColonne.getInstance().setDirectionCourante(); break;
-                    case KeyEvent.VK_ENTER, KeyEvent.VK_E : ControleInteraction.getInstance().setInteractionCourante(Interaction.Entree); break;
+                    case KeyEvent.VK_ENTER, KeyEvent.VK_E : 
+                        ControleInteraction.getInstance().setInteractionCourante(Interaction.Entree, Controle4Directions.getInstance().getLastDirection()); 
+                        break;
                 }
             }
         });
@@ -120,6 +123,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoSmick = chargerIcone("Images/Smick_idle.png");
         icoSmickDroite = chargerIcone("Images/Smick_idle_droite.png");
         gameOverScreen = chargerIcone("Images/Game_Over.png");
+        icoCarotte = chargerIcone("Images/Carotte.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -175,6 +179,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoSmick);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
+                } else if (jeu.getGrille()[x][y] instanceof Carotte) {
+                    tabJLabel[x][y].setIcon(icoCarotte);
                 } else if (jeu.getGrille()[x][y] instanceof PoutreVerticale){
                     tabJLabel[x][y].setIcon(icoPoutreVerticale);
                 } else if (jeu.getGrille()[x][y] instanceof PoutreHorizontale){

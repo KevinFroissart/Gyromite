@@ -116,12 +116,6 @@ public class Jeu {
                         bombe = true;
                     } 
                 }
-                if(objetALaPosition(pCible) instanceof Heros && e != null){
-                    if(e.getClass() == Bot.class){
-                        nb_vie--;
-                        deplacement = false;
-                    }
-                }
                 if(objetALaPosition(pCible) instanceof Heros && e instanceof Colonne){
                     nb_vie--;
                     deplacerEntite(objetALaPosition(pCible), Direction.gauche);
@@ -132,12 +126,12 @@ public class Jeu {
                     deplacement = false;
                 }
 
-                if(objetALaPosition(pCible) instanceof Bot && 
+                /*if(objetALaPosition(pCible) instanceof Bot && 
                     e instanceof Colonne) {
                         Bot cible = (Bot) objetALaPosition(pCible);
                         supprimerEntite(cible, (int) pCible.getX(), (int) pCible.getY());
                         ordonnanceur.remove(cible.getIA());
-                }
+                }*/
             }
             if(objetALaPosition(pCible) == null) deplacement = true; 
 
@@ -371,7 +365,7 @@ public class Jeu {
         if(bombe_restante == 0) {
             LevelFinished();
         } 
-        if(nb_vie == 0 || niveau_courant > NOMBRE_NIVEAU){
+        if(nb_vie <= 0 || niveau_courant > NOMBRE_NIVEAU){
             if(meilleurScore()) System.out.println("Nouveau Record!");
             else System.out.println(score + " points");
             return true;

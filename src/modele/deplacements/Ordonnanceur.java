@@ -38,9 +38,9 @@ public class Ordonnanceur extends Observable implements Runnable {
         boolean update = false;
         while(!jeu.gameFinished()) {
             jeu.resetCmptDepl();
-            //for (int i = lstDeplacements.size() - 1; i >= 0;i--) {
-                for (RealisateurDeDeplacement d : lstDeplacements) {
-                //RealisateurDeDeplacement d = lstDeplacements.get(i);
+            for (int i = lstDeplacements.size() - 1; i >= 0;i--) {
+                //for (RealisateurDeDeplacement d : lstDeplacements) {
+                RealisateurDeDeplacement d = lstDeplacements.get(i);
                 if (d.realiserDeplacement())
                     update = true;
             }

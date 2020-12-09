@@ -126,7 +126,7 @@ public class Jeu {
                     deplacement = false;
                 }
 
-                if(objetALaPosition(pCible) instanceof Bot && (e instanceof Colonne || e instanceof Heros) {
+                if(objetALaPosition(pCible) instanceof Bot && (e instanceof Colonne || e instanceof Heros)) {
                     Bot cible = (Bot) objetALaPosition(pCible);
                     supprimerEntite(cible, (int) pCible.getX(), (int) pCible.getY());
                     ordonnanceur.remove(cible.getIA());

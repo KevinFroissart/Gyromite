@@ -112,9 +112,14 @@ public class Jeu {
                     if(e instanceof Bot){
                     }
                     else {
+                        Entite entiteBombe = objetALaPosition(pCible);
                         deplacement = true;
+                        supprimerEntite(entiteBombe, (int) pCible.getX(), (int) pCible.getY(), 0);
                         bombe = true;
                     } 
+                }
+                if(objetALaPosition(pCible) instanceof Corde){ 
+                    deplacement = true;
                 }
                 if(objetALaPosition(pCible) instanceof Heros && e instanceof Colonne){
                     System.out.println("Vie restantes: " + --nb_vie);
@@ -225,8 +230,10 @@ public class Jeu {
         
         if (contenuDansGrille(p)) {
             retour = grilleEntites[p.x][p.y][0];
+            if (grilleEntites[p.x][p.y][1] != null)
+                retour = grilleEntites[p.x][p.y][1];
         }
-        
+
         return retour;
     }
 

@@ -33,7 +33,6 @@ public class Ordonnanceur extends Observable implements Runnable {
     public void run() {
         boolean update = false;
         while(!jeu.gameFinished()) {
-            System.out.println(jeu.nb_vie);
             jeu.resetCmptDepl();
             for (RealisateurDeDeplacement d : lstDeplacements) {
                 if (d.realiserDeplacement())

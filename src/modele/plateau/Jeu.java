@@ -185,7 +185,8 @@ public class Jeu {
                 nb_carotte++;
             }
             else if(!(entite instanceof Carotte) && !(entite instanceof Mur) && !(entite instanceof Bombe) 
-                 && !(entite instanceof Bot) && !(entite instanceof Colonne) && nb_carotte > 0){
+                 && !(entite instanceof Bot) && !(entite instanceof Colonne) && !(entite instanceof PoutreHorizontale)
+                 && !(entite instanceof PoutreVerticale) && nb_carotte > 0){
                 addEntite(new Carotte(this), x, (y));
                 nb_carotte--;
             }
@@ -193,7 +194,6 @@ public class Jeu {
 
         return retour;
     }
-
 
     private Point calculerPointCible(Point pCourant, Direction d) {
         Point pCible = null;
@@ -360,7 +360,6 @@ public class Jeu {
         if (niveau_courant <= NOMBRE_NIVEAU) {
             ordonnanceur.clear();
             map.clear();
-            IA.reset();
             Controle4Directions.reset();
             ControleColonne.reset();
             ControleInteraction.reset();

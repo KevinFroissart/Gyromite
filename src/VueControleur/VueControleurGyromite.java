@@ -5,9 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -19,13 +17,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip; 
 import javax.sound.sampled.LineUnavailableException; 
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.util.Random;
 
 import modele.deplacements.Controle4Directions;
 import modele.deplacements.ControleColonne;
 import modele.deplacements.ControleInteraction;
 import modele.deplacements.Direction;
-import modele.deplacements.IA;
 import modele.deplacements.Interaction;
 import modele.plateau.*;
 
@@ -69,11 +65,6 @@ public class VueControleurGyromite extends JFrame implements Observer {
         placerLesComposantsGraphiques();
         ajouterEcouteurClavier();
         playMusic();
-        lancerIA();
-    }
-
-    private void lancerIA(){
-       IA.getInstance().setDirectionCourante(IA.directionRandom());
     }
 
     private void playMusic() { 
@@ -174,9 +165,10 @@ public class VueControleurGyromite extends JFrame implements Observer {
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     tabJLabel[x][y].setIcon(icoMur);
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {
-                    Direction d = IA.getInstance().getDirectionCourante();
+                    /*Direction d = IA.getInstance().getDirectionCourante();
                     if( d == Direction.droite) tabJLabel[x][y].setIcon(icoSmickDroite);
-                    if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoSmick);
+                    if( d == Direction.gauche) tabJLabel[x][y].setIcon(icoSmick);*/
+                    tabJLabel[x][y].setIcon(icoSmick);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe) {
                     tabJLabel[x][y].setIcon(icoBombe);
                 } else if (jeu.getGrille()[x][y] instanceof Carotte) {

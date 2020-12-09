@@ -24,6 +24,7 @@ public class Bot extends EntiteDynamique {
         super(_jeu);
         ia.addEntiteDynamique(this);
         g.addEntiteDynamique(this);
+        directionRandom();
     }
 
     public Direction directionRandom(){

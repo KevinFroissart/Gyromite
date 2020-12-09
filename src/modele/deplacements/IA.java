@@ -4,23 +4,9 @@ import modele.plateau.EntiteDynamique;
 import java.util.Random;
 
 public class IA extends RealisateurDeDeplacement {
-    private static Direction directionCourante;
-    // Design pattern singleton
-    private static IA ia;
+    private Direction directionCourante;
 
-    public static IA getInstance() {
-        if (ia == null) {
-            ia = new IA();
-        }
-        return ia;
-    }
-
-    public static IA reset() {
-        ia = new IA();
-        return ia;
-    }
-
-    public static Direction getDirectionCourante(){
+    public Direction getDirectionCourante(){
         return directionCourante;
     }
 
@@ -54,7 +40,5 @@ public class IA extends RealisateurDeDeplacement {
         }
 
         return ret;
-
     }
-
 }

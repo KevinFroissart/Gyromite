@@ -365,7 +365,6 @@ public class Jeu {
     }
 
     public void LevelFinished() {
-        niveau_courant++;
         if (niveau_courant <= NOMBRE_NIVEAU) {
             ordonnanceur.clear();
             map.clear();
@@ -378,6 +377,7 @@ public class Jeu {
 
     public boolean gameFinished() {
         if(bombe_restante == 0) {
+            niveau_courant++;
             LevelFinished();
         } 
         if(nb_vie <= 0 || niveau_courant > NOMBRE_NIVEAU){

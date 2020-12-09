@@ -139,7 +139,6 @@ public class Jeu {
                     deplacement = true;   
                     addPoint(75);
                 }
-                if(objetALaPosition(pCible).peutPermettreDeMonterDescendre() && e instanceof Heros) deplacement = true;
             }
             else deplacement = true; 
 

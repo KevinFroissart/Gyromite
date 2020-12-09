@@ -1,7 +1,11 @@
 SIZE,40,20
 Heros,2,2
 Bombe,3,5
-Smick,6,4
+Corde,1,1
+Corde,1,2
+Corde,1,3
+Corde,1,4
+Corde,1,5
 PoutreHorizontale,2,3
 PoutreHorizontale,3,3
 PoutreHorizontale,4,3

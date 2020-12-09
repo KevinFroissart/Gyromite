@@ -185,7 +185,7 @@ public class Jeu {
             }
             else if(!(entite instanceof Carotte) && !(entite instanceof Mur) && !(entite instanceof Bombe) 
                  && !(entite instanceof Bot) && !(entite instanceof Colonne) && !(entite instanceof PoutreHorizontale)
-                 && !(entite instanceof PoutreVerticale) && nb_carotte > 0){
+                 && !(entite instanceof PoutreVerticale) && !(entite instanceof Corde) &&  nb_carotte > 0){
                 addEntite(new Carotte(this), x, (y));
                 nb_carotte--;
             }
@@ -300,6 +300,9 @@ public class Jeu {
                     break;
                 case "PoutreHorizontale":
                     addEntite(new PoutreHorizontale(this), x, y);
+                    break;
+                case "Corde":
+                    addEntite(new Corde(this), x, y);
                     break;
                 case "Smick":
                     Bot smick = new Bot(this);

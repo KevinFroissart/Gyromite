@@ -379,10 +379,12 @@ public class Jeu {
     public void ResetGame() {
         niveau_courant = 1;
         score = 0;
+        bombe_restante = 0;
         LevelFinished();
     }
 
     public boolean gameFinished() {
+
         if(bombe_restante == 0) {
             niveau_courant++;
             LevelFinished();

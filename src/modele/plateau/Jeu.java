@@ -126,12 +126,12 @@ public class Jeu {
                     deplacement = false;
                 }
 
-                if(objetALaPosition(pCible) instanceof Bot && 
-                    e instanceof Colonne) {
+                if(objetALaPosition(pCible).peutEtreEcrase()) {
                         Bot cible = (Bot) objetALaPosition(pCible);
                         supprimerEntite(cible, (int) pCible.getX(), (int) pCible.getY());
                         ordonnanceur.remove(cible.getIA());
                         ordonnanceur.remove(cible.getGravite());
+                        deplacement = true;
                 }
             }
             if(objetALaPosition(pCible) == null) deplacement = true; 

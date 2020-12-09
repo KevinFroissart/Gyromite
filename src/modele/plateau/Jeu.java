@@ -131,11 +131,12 @@ public class Jeu {
                     deplacement = false;
                 }
 
-                /*if(objetALaPosition(pCible).getClass() == Bot.class && 
-                    e.getClass() == Colonne.class) {
-                        Entite cible = objetALaPosition(pCible);
+                if(objetALaPosition(pCible) instanceof Bot && 
+                    e instanceof Colonne) {
+                        Bot cible = (Bot) objetALaPosition(pCible);
                         supprimerEntite(cible, (int) pCible.getX(), (int) pCible.getY());
-                }*/
+                        ordonnanceur.remove(cible.getIA());
+                }
             }
             if(objetALaPosition(pCible) == null) deplacement = true; 
 
@@ -353,14 +354,11 @@ public class Jeu {
         if (niveau_courant <= NOMBRE_NIVEAU) {
             ordonnanceur.clear();
             map.clear();
-            resetCmptDepl();
             IA.reset();
             Controle4Directions.reset();
             ControleColonne.reset();
             ControleInteraction.reset();
             initialisationDesEntites();
-        } else {
-            
         }
     }
 

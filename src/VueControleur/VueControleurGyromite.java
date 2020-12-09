@@ -119,6 +119,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
         icoPoutreVerticale = chargerIcone("Images/Poutre_Verticale.png");
         icoSmick = chargerIcone("Images/Smick_idle.png");
         icoSmickDroite = chargerIcone("Images/Smick_idle_droite.png");
+        gameOverScreen = chargerIcone("Images/Game_Over.png");
     }
 
     private ImageIcon chargerIcone(String urlIcone) {
@@ -136,7 +137,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     private void placerLesComposantsGraphiques() {
         setTitle("Gyromite");
-        setSize(sizeX * 20, sizeY * 23);
+        setSize(sizeX * 21, sizeY * 21);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX+1)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
@@ -198,14 +199,21 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     public void AfficherGameOver() {
         //afficher image gameover
+        getContentPane().removeAll();
+        JLabel gameOver = new JLabel(gameOverScreen);
+        add(gameOver);
+        setSize(256,256);
+        repaint();
+        setVisible(true);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        mettreAJourAffichage();
         if(jeu.gameFinished()) {
             AfficherGameOver();
-        } ;
+        } else {
+            mettreAJourAffichage();
+        }
         /*
         SwingUtilities.invokeLater(new Runnable() {
                     @Override

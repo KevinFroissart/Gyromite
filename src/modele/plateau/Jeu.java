@@ -117,12 +117,12 @@ public class Jeu {
                     } 
                 }
                 if(objetALaPosition(pCible) instanceof Heros && e instanceof Colonne){
-                    nb_vie--;
+                    System.out.println("Vie restantes: " + --nb_vie);
                     deplacerEntite(objetALaPosition(pCible), Direction.gauche);
                     deplacement = true; 
                 }
-                if (objetALaPosition(pCible) instanceof Heros && e instanceof Bot) {
-                    nb_vie--;
+                if(objetALaPosition(pCible) instanceof Heros && e instanceof Bot){
+                    System.out.println("Vie restantes: " + --nb_vie);
                     deplacement = false;
                 }
 

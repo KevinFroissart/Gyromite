@@ -37,7 +37,6 @@ public class Ordonnanceur extends Observable implements Runnable {
     public void run() {
         boolean update = false;
         while(!jeu.gameFinished()) {
-            System.out.println(jeu.nb_vie);
             jeu.resetCmptDepl();
             for (int i = lstDeplacements.size() - 1; i >= 0;i--) {
                 RealisateurDeDeplacement d = lstDeplacements.get(i);

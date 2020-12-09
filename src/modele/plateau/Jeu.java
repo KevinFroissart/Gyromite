@@ -134,8 +134,9 @@ public class Jeu {
                     deplacement = true;   
                     addPoint(75);
                 }
+                if(objetALaPosition(pCible).peutPermettreDeMonterDescendre() && e instanceof Heros) deplacement = true;
             }
-            if(objetALaPosition(pCible) == null) deplacement = true; 
+            else deplacement = true; 
 
             if(deplacement)
             switch (d) {
@@ -302,7 +303,7 @@ public class Jeu {
                     addEntite(new PoutreHorizontale(this), x, y, 0);
                     break;
                 case "Corde":
-                    addEntite(new Corde(this), x, y);
+                    addEntite(new Corde(this), x, y, 0);
                     break;
                 case "Smick":
                     Bot smick = new Bot(this);

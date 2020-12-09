@@ -35,6 +35,7 @@ public class Jeu {
     private int bombe_restante;
     public int nb_vie = 3;
     private int score = 0;
+    private int nb_carotte = 3;
     private int niveau_courant = 1;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
@@ -79,7 +80,7 @@ public class Jeu {
     }
     
     private void supprimerEntite(Entite e, int x, int y){
-        //grilleEntites[x][y] = null;
+        grilleEntites[x][y] = null;
         map.remove(e);
     }
     
@@ -167,20 +168,24 @@ public class Jeu {
         return retour;
     }
     
-    public boolean interactionEntite(Entite e, Interaction i){
+    public boolean interactionEntite(Entite e, Interaction i, Direction d){
         boolean retour = false;
-
         Point pCourant = map.get(e);
-
         if(contenuDansGrille(pCourant) && i == Interaction.Entree || i == Interaction.e){
-            if(objetALaPosition(pCourant).getClass() == Bombe.class && objetALaPosition(pCourant).getClass() != Heros.class){
-                retour = true; 
-                supprimerEntite(objetALaPosition(pCourant), (int) pCourant.getX(), (int) pCourant.getY());
-                
+            int x = (int) pCourant.getX();
+            int y = (int) pCourant.getY();
+            if(d == Direction.droite) x += 1;
+            if(d == Direction.gauche) x -= 1;
+            Entite entite = objetALaPosition(new Point(x,y));
+            if(entite instanceof Carotte){
+                retour = true;
+                supprimerEntite(objetALaPosition(new Point(x,y)), x, y);
+                nb_carotte++;
             }
-            else if(objetALaPosition(pCourant).getClass() != Bombe.class ){
-                retour = true; 
-                addEntite(new Bombe(this), (int) pCourant.getX(), (int) pCourant.getY());
+            else if(!(entite instanceof Carotte) && !(entite instanceof Mur) && !(entite instanceof Bombe) 
+                 && !(entite instanceof Bot) && !(entite instanceof Colonne) && nb_carotte > 0){
+                addEntite(new Carotte(this), x, (y));
+                nb_carotte--;
             }
         }
 

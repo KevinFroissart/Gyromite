@@ -30,7 +30,6 @@ public class Controle4Directions extends RealisateurDeDeplacement {
 
     public void setDirectionCourante(Direction _directionCourante) {
         directionCourante = _directionCourante;
-        lastDirection = _directionCourante;
     }
 
     public boolean realiserDeplacement() {
@@ -39,6 +38,7 @@ public class Controle4Directions extends RealisateurDeDeplacement {
             if (directionCourante != null)
                 switch (directionCourante) {
                     case gauche, droite, q, d:
+                        lastDirection = directionCourante;
                         if (e.avancerDirectionChoisie(directionCourante))
                             ret = true;
                         break;

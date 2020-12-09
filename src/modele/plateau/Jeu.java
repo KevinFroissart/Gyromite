@@ -141,16 +141,22 @@ public class Jeu {
                 case bas, haut, s, z:
                     if (cmptDeplV.get(e) == null) {
                         cmptDeplV.put(e, 1);
-                        if(bombe){ addPoint(50); bombe_restante--; }
-
+                        if(bombe){
+                            addPoint(50);
+                            System.out.println("Score: " + score);
+                            bombe_restante--;
+                        }
                         retour = true;
                     }
                     break;
                 case gauche, droite, q, d:
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
-                        if(bombe){ addPoint(50); bombe_restante--; }
-
+                        if(bombe){
+                            addPoint(50);
+                            System.out.println("Score: " + score);
+                            bombe_restante--;
+                        }
                         retour = true;
                     }
                     break;

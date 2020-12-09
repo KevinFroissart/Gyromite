@@ -22,6 +22,6 @@ public class Main {
         jeu.getOrdonnanceur().addObserver(vc);
         
         vc.setVisible(true);
-        jeu.start(400);
+        jeu.start(300);
     }
 }

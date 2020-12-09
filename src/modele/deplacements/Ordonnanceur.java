@@ -16,6 +16,10 @@ public class Ordonnanceur extends Observable implements Runnable {
         lstDeplacements.add(deplacement);
     }
 
+    public void remove(RealisateurDeDeplacement deplacement) {
+        lstDeplacements.remove(deplacement);
+    }
+
     public void clear() {
         lstDeplacements.clear();
     }
@@ -34,7 +38,8 @@ public class Ordonnanceur extends Observable implements Runnable {
         boolean update = false;
         while(!jeu.gameFinished()) {
             jeu.resetCmptDepl();
-            for (RealisateurDeDeplacement d : lstDeplacements) {
+            for (int i = lstDeplacements.size() - 1; i >= 0;i--) {
+                RealisateurDeDeplacement d = lstDeplacements.get(i);
                 if (d.realiserDeplacement())
                     update = true;
             }

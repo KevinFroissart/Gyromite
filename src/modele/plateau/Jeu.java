@@ -366,6 +366,7 @@ public class Jeu {
 
     public void LevelFinished() {
         if (niveau_courant <= NOMBRE_NIVEAU) {
+            nb_carotte = 3;
             ordonnanceur.clear();
             map.clear();
             Controle4Directions.reset();
@@ -373,6 +374,12 @@ public class Jeu {
             ControleInteraction.reset();
             initialisationDesEntites();
         }
+    }
+
+    public void ResetGame() {
+        niveau_courant = 1;
+        score = 0;
+        LevelFinished();
     }
 
     public boolean gameFinished() {

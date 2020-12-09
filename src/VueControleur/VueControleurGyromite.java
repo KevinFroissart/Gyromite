@@ -96,7 +96,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_ENTER, KeyEvent.VK_E : 
                         ControleInteraction.getInstance().setInteractionCourante(Interaction.Entree, Controle4Directions.getInstance().getLastDirection()); 
                         break;
-                        case KeyEvent.VK_P: jeu.LevelFinished(); break;
+                        case KeyEvent.VK_P: jeu.ResetGame(); break;
                 }
             }
         });

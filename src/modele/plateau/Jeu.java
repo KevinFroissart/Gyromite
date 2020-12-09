@@ -133,7 +133,7 @@ public class Jeu {
                         ordonnanceur.remove(cible.getIA());
                         ordonnanceur.remove(cible.getGravite());
                         deplacement = true;   
-                        addPoint(50);
+                        addPoint(75);
                 }
             }
             if(objetALaPosition(pCible) == null) deplacement = true; 
@@ -145,7 +145,6 @@ public class Jeu {
                         cmptDeplV.put(e, 1);
                         if(bombe){
                             addPoint(50);
-                            System.out.println("Score: " + score);
                             bombe_restante--;
                         }
                         retour = true;
@@ -156,7 +155,6 @@ public class Jeu {
                         cmptDeplH.put(e, 1);
                         if(bombe){
                             addPoint(50);
-                            System.out.println("Score: " + score);
                             bombe_restante--;
                         }
                         retour = true;

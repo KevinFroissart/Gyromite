@@ -10,7 +10,6 @@ import modele.deplacements.ControleColonne;
 import modele.deplacements.ControleInteraction;
 import modele.deplacements.Direction;
 import modele.deplacements.Gravite;
-import modele.deplacements.IA;
 import modele.deplacements.Interaction;
 import modele.deplacements.Ordonnanceur;
 import java.io.BufferedReader;
@@ -390,6 +389,7 @@ public class Jeu {
             LevelFinished();
         } 
         if(nb_vie <= 0 || niveau_courant > NOMBRE_NIVEAU){
+            addPoint(60 * nb_vie);
             if(meilleurScore()) System.out.println("Nouveau Record!");
             else System.out.println(score + " points");
             return true;
